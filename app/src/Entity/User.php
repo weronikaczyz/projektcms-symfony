@@ -47,6 +47,11 @@ class User implements UserInterface
     const ROLE_ADMIN = 'ROLE_ADMIN';
 
     /**
+     * Pagination number of items.
+     */
+    const NUMBER_OF_ITEMS = 10;
+
+    /**
     * Primary key.
     *
     * @var int

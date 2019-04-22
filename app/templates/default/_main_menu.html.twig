@@ -1,0 +1,51 @@
+<aside class="column is-2 aside hero is-fullheight has-background-light">
+    <div>
+        {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+            <p class="menu-label">Hello, {{ app.user.name }}</p>
+            <ul class="menu-list">
+                <li>
+                    <a href="{{ url('security_logout') }}">
+                        <i class="fas fa-sign-out-alt"></i>
+                        {{ 'action.logout'|trans }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('page_new') }}">
+                        <i class="fas fa-pencil-alt"></i>
+                        {{ 'pages.new'|trans }}
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ url('pages_my') }}">
+                        <i class="fas fa-eye"></i>
+                        {{ 'pages.my'|trans }}
+                    </a>
+                </li>
+            </ul>
+        {% else %}
+            <p class="menu-label">Hello, Anonymous</p>
+            <ul class="menu-list">
+                <li>
+                    <a href="{{ url('security_login') }}">
+                        <i class="fas fa-sign-in-alt"></i> {{ 'action.login'|trans }}
+                    </a>
+                </li>
+            </ul>
+        {% endif %}
+        {% if is_granted('ROLE_ADMIN') %}
+        <p class="menu-label">Admin Panel</p>
+        <ul class="menu-list">
+            <li>
+                <a href="{{ url('admin_pages') }}">
+                    {{ 'admin.pages_index'|trans }}
+                </a>
+            </li>
+            <li>
+                <a href="{{ url('admin_users') }}">
+                    {{ 'admin.users_index'|trans }}
+                </a>
+            </li>
+        </ul>
+        {% endif %}
+    </div>
+</aside>

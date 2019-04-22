@@ -1,0 +1,66 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    CMS Admin
+{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <h1 class="title">
+            <th>{{ 'admin.users_index'|trans }}</th>
+        </h1>
+    </section>
+    <section class="section">
+        {% if pagination is defined and pagination|length %}
+
+            <div class="columns">
+                <div class="column">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
+            </div>
+
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>{{ 'label.roles'|trans }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'label.id'|trans, 't.id') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'label.name'|trans, 't.name') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'label.email'|trans, 't.email') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 't.createdAt') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 't.updatedAt') }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in pagination %}
+                        <tr>
+                            <td>
+                            {% for role in user.roles %}
+                                {% if role == 'ROLE_USER' %}
+                                    <span class="tag is-rounded">{{ 'label.user'|trans }}</span>
+                                {% endif %}
+                                {% if role == 'ROLE_ADMIN' %}
+                                    <span class="tag is-rounded is-success">{{ 'label.admin'|trans }}</span>
+                                {% endif %}
+                            {% endfor %}
+                            </td>
+                            <td>{{ user.id }}</td>
+                            <td>{{ user.name }}</td>
+                            <td>{{ user.email }}</td>
+                            <td>{{ user.createdAt|date('Y/m/d') }}</td>
+                            <td>{{ user.updatedAt|date('Y/m/d') }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+        {% else %}
+            <p>
+                {{ 'message.empty_list'|trans }}
+            </p>
+        {% endif %}
+    </section>
+{% endblock %}

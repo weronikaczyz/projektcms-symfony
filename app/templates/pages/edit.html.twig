@@ -1,24 +1,24 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Create new page
+    {{ 'pages.edit'|trans }} {{ page.title }}
 {% endblock %}
 
 {% block body %}
     <section class="section">
         <h1 class="title">
-            {{ 'pages.new'|trans }}
+            {{ 'pages.edit'|trans }} "{{ page.title }}"
         </h1>
     </section>
     <section class="section">
-        {{ form_start(form, { method: 'POST', action: url('page_new') }) }}
+        {{ form_start(form, { method: 'PUT', action: url('page_edit', {id: page.id}) }) }}
         {{ form_widget(form) }}
         <div class="field is-grouped">
             <div class="control">
                 <input type="submit" value="{{ 'action.save'|trans }}" class="button is-link" />
             </div>
             <div class="control">
-                <a href="{{ url('admin_pages') }}" class="button is-text">
+                <a href="{{ url('page_index') }}" class="button is-text">
                     {{ 'action.back_to_list'|trans }}
                 </a>
             </div>

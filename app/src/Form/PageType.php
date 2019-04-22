@@ -10,6 +10,8 @@ use App\Entity\Page;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
@@ -42,7 +44,7 @@ class PageType extends AbstractType
         );
         $builder->add(
             'content',
-            TextType::class,
+            TextareaType::class,
             [
                 'label' => 'pages.content',
                 'required' => true,
@@ -50,16 +52,11 @@ class PageType extends AbstractType
             ]
         );
         $builder->add(
-            'authorId',
-            EntityType::class,
+            'published',
+            CheckboxType::class,
             [
-                'class' => User::class,
-                'choice_label' => function ($user) {
-                    return $user->getName();
-                },
-                'label' => 'label.author',
-                'placeholder' => 'label.none',
-                'required' => true,
+                'label' => 'label.published',
+                'required' => false
             ]
         );
     }

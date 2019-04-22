@@ -12,34 +12,10 @@
         {% endblock %}
     </head>
     <body>
-        {% include 'default/_flash_messages.html.twig' %}
-
         <div class="columns">
-            <aside class="column is-2 aside hero is-fullheight has-background-light">
-                <div>
-                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                        <p class="menu-label">Hello, {{ app.user.name }}</p>
-                        <ul class="menu-list">
-                            <li>
-                                <a href="{{ url('security_logout') }}">
-                                    <i class="fas fa-sign-out-alt"></i>
-                                    {{ 'action.logout'|trans }}
-                                </a>
-                            </li>
-                        </ul>
-                    {% else %}
-                        <p class="menu-label">Hello, Anonymous</p>
-                        <ul class="menu-list">
-                            <li>
-                                <a href="{{ url('security_login') }}">
-                                    <i class="fas fa-sign-in-alt"></i> {{ 'action.login'|trans }}
-                                </a>
-                            </li>
-                        </ul>
-                    {% endif %}
-                </div>
-            </aside>
+            {% include 'default/_main_menu.html.twig' %}
             <main class="column">
+                {% include 'default/_flash_messages.html.twig' %}
                 {% block body %}{% endblock %}
             </main>
         </div>

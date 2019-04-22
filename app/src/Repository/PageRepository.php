@@ -3,6 +3,7 @@
 namespace App\Repository;
 
 use App\Entity\Page;
+use App\Entity\User;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -18,6 +19,19 @@ class PageRepository extends ServiceEntityRepository
     public function __construct(RegistryInterface $registry)
     {
         parent::__construct($registry, Page::class);
+    }
+
+    /**
+    * Query all by given user.
+    *
+    * @param \App\Entity\User $user
+    * @return \Doctrine\ORM\QueryBuilder Query builder
+    */
+    public function queryAllByUser(User $user): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->andWhere('t.author = ' . $user->getId())
+            ->orderBy('t.updatedAt', 'DESC');
     }
 
     /**

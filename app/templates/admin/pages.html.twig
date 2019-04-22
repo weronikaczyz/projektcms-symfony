@@ -1,20 +1,26 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    CMS Admin
+    {{ 'pages.index'|trans }}
 {% endblock %}
 
 {% block body %}
     <section class="section">
         <h1 class="title">
-            <th>{{ 'admin.pages_index'|trans }}</th>
+            <th>{{ 'pages.index'|trans }}</th>
         </h1>
     </section>
     <section class="section">
+        <div class="columns">
+            <div class="column">
+                <a href="{{ url('page_new') }}" class="button is-success"><i class="fas fa-pencil-alt"></i>&nbsp;{{ 'pages.new'|trans }}</a>
+            </div>
+        </div>
         {% if pagination is defined and pagination|length %}
-
-            <div class="navigation text-center">
-                {{ knp_pagination_render(pagination) }}
+            <div class="columns">
+                <div class="column">
+                    {{ knp_pagination_render(pagination) }}
+                </div>
             </div>
 
             <table class="table is-striped is-fullwidth">
@@ -48,7 +54,7 @@
                                     {{ 'pages.view'|trans }}
                                 </a>
                                 &nbsp;
-                                <a href="{{ url('security_logout') }}">
+                                <a href="{{ url('page_edit', {id: page.id}) }}">
                                     <i class="fas fa-pencil-alt"></i>
                                     {{ 'pages.edit'|trans }}
                                 </a>

@@ -1,12 +1,16 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-    Page not found!
+    403 {{ 'errors.no_permission'|trans }}
 {% endblock %}
 
 {% block body %}
-    <h1>
-        Error 403 xD
-    </h1>
-    <p>The page you are looking for does not exist!</p>
+    <section class="section">
+        <h1 class="title">
+            403 {{ 'errors.no_permission'|trans }}
+        </h1>
+    </section>
+    <section class="section">
+        <p>{{ 'errors.no_permission_long'|trans }}</p>
+    </section>
 {% endblock %}
