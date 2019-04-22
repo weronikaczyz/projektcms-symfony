@@ -5,6 +5,7 @@ namespace App\Repository;
 use App\Entity\Page;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
+use Doctrine\ORM\QueryBuilder;
 
 /**
  * @method Page|null find($id, $lockMode = null, $lockVersion = null)
@@ -18,6 +19,60 @@ class PageRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Page::class);
     }
+
+    /**
+    * Query all records.
+    *
+    * @return \Doctrine\ORM\QueryBuilder Query builder
+    */
+    public function queryAll(): QueryBuilder
+    {
+        return $this->getOrCreateQueryBuilder()
+            ->orderBy('t.updatedAt', 'DESC');
+    }
+
+    /**
+    * Save record.
+    *
+    * @param \App\Entity\Page $page Page entity
+    *
+    * @return void
+    *
+    * @throws \Doctrine\ORM\ORMException
+    * @throws \Doctrine\ORM\OptimisticLockException
+    */
+    public function save(Page $page): void
+    {
+        $this->_em->persist($page);
+        $this->_em->flush($page);
+    }
+
+    /**
+    * Delete record.
+    *
+    * @param \App\Entity\Page $page Page entity
+    *
+    * @throws \Doctrine\ORM\ORMException
+    * @throws \Doctrine\ORM\OptimisticLockException
+    */
+    public function delete(Page $page): void
+    {
+        $this->_em->remove($page);
+        $this->_em->flush($page);
+    }
+
+    /**
+    * Get or create new query builder.
+    *
+    * @param \Doctrine\ORM\QueryBuilder|null $queryBuilder Query builder
+    *
+    * @return \Doctrine\ORM\QueryBuilder Query builder
+    */
+    private function getOrCreateQueryBuilder(QueryBuilder $queryBuilder = null): QueryBuilder
+    {
+        return $queryBuilder ?: $this->createQueryBuilder('t');
+    }
+
 
     // /**
     //  * @return Page[] Returns an array of Page objects

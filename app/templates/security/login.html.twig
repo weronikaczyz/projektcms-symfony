@@ -1,0 +1,44 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'title.login'|trans }}
+{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <h1 class="title">
+            {{ 'title.login'|trans }}
+        </h1>
+    </section>
+    <section class="section">
+        <form method="post" action="{{ url('security_login') }}">
+            {% if error %}
+                {%  include 'default/_single_flash_message.html.twig' with {
+                    type: 'error',
+                    message: error.messageKey|trans(error.messageData, 'security')
+                } %}
+            {% endif %}
+
+            <div class="field">
+                <label class="label" for="email">{{ 'label.email'|trans }}</label>
+                <div class="control">
+                    <input type="email" id="email" name="email" value="{{ last_username }}" class="input" required="required" />
+                </div>
+            </div>
+
+            <div class="field">
+                <label class="label" for="password">{{ 'label.password'|trans }}</label>
+                <input class="input" type="password" id="password" name="password" class="form-control" required="required" />
+            </div>
+
+            <div class="field is-grouped">
+                <input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+                <div class="control">
+                    <button type="submit" class="button is-link">
+                        <i class="fas fa-sign-in-alt"></i>&nbsp; {{ 'action.login'|trans }}
+                    </button>
+                </div>
+            </div>
+        </form>
+    </section>
+{% endblock %}

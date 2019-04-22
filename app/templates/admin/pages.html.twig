@@ -1,0 +1,71 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    CMS Admin
+{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <h1 class="title">
+            <th>{{ 'admin.pages_index'|trans }}</th>
+        </h1>
+    </section>
+    <section class="section">
+        {% if pagination is defined and pagination|length %}
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+            <table class="table is-striped is-fullwidth">
+                <thead>
+                    <tr>
+                        <th>{{ knp_pagination_sortable(pagination, 'label.published'|trans, 't.published') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 't.title') }}</th>
+                        <th>{{ 'label.author'|trans }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 't.createdAt') }}</th>
+                        <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 't.updatedAt') }}</th>
+                        <th>{{ 'label.actions'|trans }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for page in pagination %}
+                        <tr>
+                            <td>
+                                {% if page.published %}
+                                    <span class="tag is-rounded is-success">{{ 'label.published'|trans }}</span>
+                                {% else %}
+                                    <span class="tag is-rounded">{{ 'label.not_published'|trans }}</span>
+                                {% endif %}
+                            </td>
+                            <td>{{ page.title }}</td>
+                            <td>{{ page.author.getName }}</td>
+                            <td>{{ page.createdAt|localizeddate }}</td>
+                            <td>{{ page.updatedAt|localizeddate }}</td>
+                            <td>
+                                <a href="{{ url('page_view', {id: page.id}) }}">
+                                    <i class="fas fa-eye"></i>
+                                    {{ 'pages.view'|trans }}
+                                </a>
+                                &nbsp;
+                                <a href="{{ url('security_logout') }}">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    {{ 'pages.edit'|trans }}
+                                </a>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+
+            <div class="navigation text-center">
+                {{ knp_pagination_render(pagination) }}
+            </div>
+
+        {% else %}
+            <p>
+                {{ 'message.empty_list'|trans }}
+            </p>
+        {% endif %}
+    </section>
+{% endblock %}

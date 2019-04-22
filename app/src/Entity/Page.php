@@ -11,6 +11,15 @@ use Doctrine\ORM\Mapping as ORM;
 class Page
 {
     /**
+    * Use constants to define configuration options that rarely change instead
+    * of specifying them in app/config/config.yml.
+    * See http://symfony.com/doc/current/best_practices/configuration.html#constants-vs-configuration-options
+    *
+    * @constant int NUMBER_OF_ITEMS
+    */
+    const NUMBER_OF_ITEMS = 10;
+
+    /**
      * Primary key.
      *
      * @var int
@@ -49,6 +58,30 @@ class Page
     private $published;
 
     /**
+     * Author user.
+     *
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="pages")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $author;
+
+    /**
+    * Created at.
+    *
+    * @var \DateTime
+     * @ORM\Column(type="datetime")
+     */
+    private $createdAt;
+
+    /**
+    * Updated at.
+    *
+    * @var \DateTime
+     * @ORM\Column(type="datetime")
+     */
+    private $updatedAt;
+
+    /**
      * Get ID
      *
      * @return int|null Id
@@ -73,11 +106,9 @@ class Page
      *
      * @param string $title Title
      */
-    public function setTitle(string $title): self
+    public function setTitle(string $title): void
     {
         $this->title = $title;
-
-        return $this;
     }
 
     /**
@@ -95,11 +126,9 @@ class Page
      *
      * @param string $content Content
      */
-    public function setContent(string $content): self
+    public function setContent(string $content): void
     {
         $this->content = $content;
-
-        return $this;
     }
 
     /**
@@ -117,10 +146,68 @@ class Page
      *
      * @param boolean $published Published.
      */
-    public function setPublished(bool $published): self
+    public function setPublished(bool $published): void
     {
         $this->published = $published;
+    }
 
-        return $this;
+    /**
+    * Getter of author.
+    *
+    * @return App\Entity\User|null author
+    */
+    public function getAuthor(): ?User
+    {
+        return $this->author;
+    }
+
+    /**
+     * Setter of author.
+     *
+     * @param App\Entity\User $author Author user.
+     */
+    public function setAuthor(?User $author): void
+    {
+        $this->author = $author;
+    }
+
+    /**
+    * Getter for Created at.
+    *
+    * @return \DateTimeInterface|null Created at
+    */
+    public function getCreatedAt(): ?\DateTimeInterface
+    {
+        return $this->createdAt;
+    }
+
+    /**
+    * Setter for Created at.
+    *
+    * @param \DateTimeInterface $createdAt Created at
+    */
+    public function setCreatedAt(\DateTimeInterface $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
+
+    /**
+    * Getter for Updated at.
+    *
+    * @return \DateTimeInterface|null Updated at
+    */
+    public function getUpdatedAt(): ?\DateTimeInterface
+    {
+        return $this->updatedAt;
+    }
+
+    /**
+    * Setter for Updated at.
+    *
+    * @param \DateTimeInterface $updatedAt Updated at
+    */
+    public function setUpdatedAt(\DateTimeInterface $updatedAt): void
+    {
+        $this->updatedAt = $updatedAt;
     }
 }

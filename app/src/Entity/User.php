@@ -5,6 +5,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
@@ -135,6 +137,16 @@ class User implements UserInterface
     * )
     */
     private $name;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="author")
+     */
+    private $pages;
+
+    public function __construct()
+    {
+        $this->pages = new ArrayCollection();
+    }
 
     /**
     * Getter for the Id.
@@ -298,5 +310,44 @@ class User implements UserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * Getter of pages.
+     *
+     * @return App|Entity|Page[]
+     */
+    public function getPages(): Collection
+    {
+        return $this->pages;
+    }
+
+    /**
+     * Add a page to a user.
+     *
+     * @param App\Entity\Page $page Page
+     */
+    public function addPage(Page $page): void
+    {
+        if (!$this->pages->contains($page)) {
+            $this->pages[] = $page;
+            $page->setAuthor($this);
+        }
+    }
+
+    /**
+     * Remove a page from a user.
+     *
+     * @param App/Entity/Page $page Page
+     */
+    public function removePage(Page $page): void
+    {
+        if ($this->pages->contains($page)) {
+            $this->pages->removeElement($page);
+            // set the owning side to null (unless already changed)
+            if ($page->getAuthor() === $this) {
+                $page->setAuthor(null);
+            }
+        }
     }
 }

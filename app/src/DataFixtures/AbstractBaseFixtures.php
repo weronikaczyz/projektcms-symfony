@@ -90,9 +90,9 @@ abstract class AbstractBaseFixtures extends Fixture
     *
     * @param string $groupName Objects group name
     *
-    * @return object Random object reference
+    * @return mixed Random object reference
     */
-    protected function getRandomReference(string $groupName): object
+    protected function getRandomReference(string $groupName)
     {
         if (!isset($this->referencesIndex[$groupName])) {
             $this->referencesIndex[$groupName] = [];

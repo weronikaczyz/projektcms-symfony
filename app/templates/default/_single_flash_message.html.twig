@@ -1,0 +1,23 @@
+{% if type == 'error' %}
+    <article class="message is-danger">
+        <div class="message-body">
+            {{ message }}
+        </div>
+    </article>
+{% endif %}
+
+{% if type == 'success' %}
+    <article class="message is-success">
+        <div class="message-body">
+            {{ message }}
+        </div>
+    </article>
+{% endif %}
+
+{% if type == 'info' %}
+    <article class="message is-info">
+        <div class="message-body">
+            {{ message }}
+        </div>
+    </article>
+{% endif %}
