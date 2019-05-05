@@ -43,6 +43,9 @@
                                 {% else %}
                                     <span class="tag is-rounded">{{ 'label.not_published'|trans }}</span>
                                 {% endif %}
+                                {% if page.id == homepageId %}
+                                <span class="tag is-rounded is-info">{{ 'label.homepage'|trans }}</span>
+                                {% endif %}
                             </td>
                             <td>{{ page.title }}</td>
                             <td>{{ page.author.getName }}</td>

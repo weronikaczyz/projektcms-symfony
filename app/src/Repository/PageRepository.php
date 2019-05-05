@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Page;
 use App\Entity\User;
+use App\Repository\SettingRepository;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 use Doctrine\ORM\QueryBuilder;
@@ -16,9 +17,30 @@ use Doctrine\ORM\QueryBuilder;
  */
 class PageRepository extends ServiceEntityRepository
 {
-    public function __construct(RegistryInterface $registry)
+    /**
+     * Setting repository.
+     *
+     * @var \App\Repository\SettingRepository
+     */
+    private $settingRepository;
+
+    public function __construct(RegistryInterface $registry, SettingRepository $settingRepository)
     {
+        $this->settingRepository = $settingRepository;
         parent::__construct($registry, Page::class);
+    }
+
+    public function getHomepage(): Page
+    {
+        $homepageId = $this->settingRepository->getHomepageId();
+
+        $homePage =  $this->getOrCreateQueryBuilder()
+            ->andWhere('t.id = ' . $homepageId)
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+
+        return $homePage[0];
     }
 
     /**
@@ -43,6 +65,38 @@ class PageRepository extends ServiceEntityRepository
     {
         return $this->getOrCreateQueryBuilder()
             ->orderBy('t.updatedAt', 'DESC');
+    }
+
+    /**
+    * Get all published pages.
+    *
+    * @return \App\Entity\Page Page.
+    */
+    public function queryAllByPublished(): array
+    {
+        $pages =  $this->getOrCreateQueryBuilder()
+            ->andWhere('t.published = true')
+            ->orderBy('t.updatedAt', 'ASC')
+            ->getQuery()
+            ->getResult();
+
+        return $pages;
+    }
+
+    /**
+     * Get first published page.
+     *
+     * @return \App\Entity\Page Page.
+     */
+    public function queryOneByPublished(): Page
+    {
+        $pages =  $this->getOrCreateQueryBuilder()
+            ->andWhere('t.published = true')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+
+        return $pages[0];
     }
 
     /**

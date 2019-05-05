@@ -7,6 +7,7 @@ namespace App\Controller;
 use App\Entity\Page;
 use App\Form\PageType;
 use App\Repository\PageRepository;
+use App\Repository\SettingRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Response;
@@ -33,13 +34,25 @@ class PagesController extends AbstractController
     */
     public function index(PageRepository $repository): Response
     {
-        return $this->render('pages/index.html.twig', ['page' => $repository->findAll()]);
+        $page = $repository->getHomePage();
+
+        if (empty($page)) {
+            return $this->render(
+                'errors/404.html.twig'
+            );
+        }
+
+        return $this->render(
+            'pages/view.html.twig',
+            ['page' => $page]
+        );
     }
 
     /**
     * Given user's pages action.
     *
     * @param \App\Repository\PageRepository Page repository
+    * @param \App\Repository\SettingRepository Setting repository
     * @param \Symfony\Component\HttpFoundation\Request HTTP request
     * @param \Knp\Component\Pager\PaginatorInterface Paginator
     *
@@ -51,9 +64,15 @@ class PagesController extends AbstractController
     *     name="pages_my"
     *    )
     */
-    public function my_pages(PageRepository $repository, Request $request, PaginatorInterface $paginator): Response
+    public function my_pages(
+        PageRepository $repository,
+        SettingRepository $settingRepository,
+        Request $request,
+        PaginatorInterface $paginator
+    ): Response
     {
         $user = $this->getUser();
+        $homepageId = $settingRepository->getHomepageId();
 
         $pagination = $paginator->paginate(
             $repository->queryAllByUser($user),
@@ -63,7 +82,7 @@ class PagesController extends AbstractController
 
         return $this->render(
             'admin/pages.html.twig',
-            ['pagination' => $pagination]
+            ['pagination' => $pagination, 'homepageId' => $homepageId]
         );
     }
 

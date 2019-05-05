@@ -1,0 +1,52 @@
+<nav class="navbar is-primary">
+    <div class="navbar-brand">
+        <a class="navbar-item" href="{{ url('page_index') }}">
+            {{ pageTitle }}
+        </a>
+    </div>
+    <div class="navbar-menu">
+        <div class="navbar-start">
+            {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ url('admin_pages') }}" class="navbar-item">
+                    <i class="fas fa-list"></i>&nbsp;
+                    {{ 'admin.pages_index'|trans }}
+                </a>
+                <a href="{{ url('admin_users') }}" class="navbar-item">
+                    <i class="fas fa-users"></i>&nbsp;
+                    {{ 'admin.users_index'|trans }}
+                </a>
+            {% endif %}
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <a href="{{ url('page_new') }}" class="navbar-item">
+                    <i class="fas fa-pencil-alt"></i>&nbsp;
+                    {{ 'pages.new'|trans }}
+                </a>
+                <a href="{{ url('pages_my') }}" class="navbar-item">
+                    <i class="fas fa-eye"></i>&nbsp;
+                    {{ 'pages.my'|trans }}
+                </a>
+            {% endif %}
+        </div>
+
+        <div class="navbar-end">
+            {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                <p class="navbar-item">Hello, {{ app.user.name }}</p>
+            {% endif %}
+            <div class="navbar-item">
+                <div class="buttons">
+                    {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
+                        <a href="{{ url('security_logout') }}" class="button is-warning">
+                            <i class="fas fa-sign-out-alt"></i>&nbsp;
+                            {{ 'action.logout'|trans }}
+                        </a>
+                    {% else %}
+                        <a href="{{ url('security_login') }}" class="button is-info">
+                            <i class="fas fa-sign-in-alt"></i>&nbsp;
+                            {{ 'action.login'|trans }}
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
+</nav>

@@ -6,12 +6,10 @@
         <title>{% block title %}Welcome!{% endblock %}</title>
         {% block stylesheets %}
             <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.4/css/bulma.min.css">
-            {# <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css" rel="stylesheet"/> #}
-            {# <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> #}
-            {# <link href="{{ asset('css/your_form_theme.css') }}" rel="stylesheet"/> #}
         {% endblock %}
     </head>
     <body>
+        {% include 'default/_user_menu.html.twig' %}
         <div class="columns">
             {% include 'default/_main_menu.html.twig' %}
             <main class="column">
@@ -31,7 +29,6 @@
         </div>
 
         {% block javascripts %}
-            {# <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script> #}
             <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
         {% endblock %}
     </body>

@@ -8,6 +8,7 @@ use App\Entity\Page;
 use App\Entity\User;
 use App\Repository\PageRepository;
 use App\Repository\UserRepository;
+use App\Repository\SettingRepository;
 use Knp\Component\Pager\PaginatorInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
@@ -20,6 +21,7 @@ class AdminController extends AbstractController
     * Pages action.
     *
     * @param \App\Repository\PageRepository Page repository
+    * @param \App\Repository\SettingRepository Setting repository
     * @param \Symfony\Component\HttpFoundation\Request HTTP request
     * @param \Knp\Component\Pager\PaginatorInterface Paginator
     *
@@ -31,8 +33,15 @@ class AdminController extends AbstractController
     *     name="admin_pages"
     *    )
     */
-    public function pages(PageRepository $repository, Request $request, PaginatorInterface $paginator): Response
+    public function pages(
+        PageRepository $repository,
+        SettingRepository $settingRepository,
+        Request $request,
+        PaginatorInterface $paginator
+    ): Response
     {
+        $homepageId = $settingRepository->getHomepageId();
+
         $pagination = $paginator->paginate(
             $repository->queryAll(),
             $request->query->getInt('page', 1),
@@ -41,7 +50,7 @@ class AdminController extends AbstractController
 
         return $this->render(
             'admin/pages.html.twig',
-            ['pagination' => $pagination]
+            ['pagination' => $pagination, 'homepageId' => $homepageId]
         );
     }
 
