@@ -31,7 +31,20 @@ class SettingRepository extends ServiceEntityRepository
         return $settings[0]->getValue();
     }
 
-    public function getPageTitle(): string
+    public function setHomepage($newId): void
+    {
+        $settings =  $this->getOrCreateQueryBuilder()
+            ->andWhere('t.name = \'homepage\'')
+            ->setMaxResults(1)
+            ->getQuery()
+            ->getResult();
+
+        $settings[0]->setValue($newId);
+        $settings[0]->setUpdatedAt(new \DateTime());
+        $this->save($settings[0]);
+    }
+
+    public function getPageTitle(): Setting
     {
         $settings =  $this->getOrCreateQueryBuilder()
             ->andWhere('t.name = \'title\'')
@@ -39,7 +52,23 @@ class SettingRepository extends ServiceEntityRepository
             ->getQuery()
             ->getResult();
 
-        return $settings[0]->getValue();
+        return $settings[0];
+    }
+
+    /**
+    * Save record.
+    *
+    * @param \App\Entity\Setting $setting Setting entity
+    *
+    * @return void
+    *
+    * @throws \Doctrine\ORM\ORMException
+    * @throws \Doctrine\ORM\OptimisticLockException
+    */
+    public function save(Setting $setting): void
+    {
+        $this->_em->persist($setting);
+        $this->_em->flush($setting);
     }
 
     /**

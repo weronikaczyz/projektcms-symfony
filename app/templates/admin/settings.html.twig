@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'admin.settings'|trans }}
+{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <h1 class="title">
+            {{ 'admin.settings'|trans }}
+        </h1>
+    </section>
+    <section class="section">
+        <h3 class="title is-4">{{ 'settings.title'|trans }}</h3>
+        {{ form_start(titleForm, { method: 'PUT', action: url('admin_settings') }) }}
+        {{ form_widget(titleForm) }}
+        <div class="field is-grouped">
+            <div class="control">
+                <input type="submit" value="{{ 'action.save'|trans }}" class="button is-link" />
+            </div>
+            <div class="control">
+                <a href="{{ url('admin_pages') }}" class="button is-text">
+                    {{ 'action.cancel'|trans }}
+                </a>
+            </div>
+        </div>
+        {{ form_end(titleForm) }}
+    </section>
+{% endblock %}

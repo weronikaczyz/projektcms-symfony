@@ -13,6 +13,19 @@
     <section class="section">
         {{ form_start(form, { method: 'PUT', action: url('page_edit', {id: page.id}) }) }}
         {{ form_widget(form) }}
+        <div class="field">
+            <div class="control">
+                <label class="checkbox" {% if not is_granted('ROLE_ADMIN') %} disabled="disabled" {% endif %}>
+                    <input
+                        type="checkbox"
+                        name="homepage"
+                        value="1"
+                        {% if not is_granted('ROLE_ADMIN') %} disabled="disabled" {% endif %}
+                        {% if homepage.id == page.id %} checked="checked" {% endif %}>
+                    {{ 'label.homepage'|trans }}
+                </label>
+            </div>
+        </div>
         <div class="field is-grouped">
             <div class="control">
                 <input type="submit" value="{{ 'action.save'|trans }}" class="button is-link" />

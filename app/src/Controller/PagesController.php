@@ -182,7 +182,12 @@ class PagesController extends AbstractController
     *     name="page_edit",
     * )
     */
-    public function edit(Request $request, Page $page, PageRepository $repository): Response
+    public function edit(
+        Request $request,
+        Page $page,
+        PageRepository $repository,
+        SettingRepository $settingRepository
+    ): Response
     {
         $user = $this->getUser();
 
@@ -192,12 +197,23 @@ class PagesController extends AbstractController
             );
         }
 
+        $homepage = $repository->getHomePage();
+
         $form = $this->createForm(PageType::class, $page, ['method' => 'PUT']);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+            if ($this->isGranted('ROLE_ADMIN')) {
+                $isHomepage = $request->request->get('homepage');
+                if ($isHomepage) {
+                    $settingRepository->setHomepage($page->getId());
+                    $page->setPublished(true);
+                }
+            }
+
             $page->setUpdatedAt(new \DateTime());
             $repository->save($page);
+
 
             $this->addFlash('success', 'message.updated_successfully');
 
@@ -213,6 +229,7 @@ class PagesController extends AbstractController
             [
                 'form' => $form->createView(),
                 'page' => $page,
+                'homepage' => $homepage
             ]
         );
     }

@@ -35,7 +35,7 @@ class GlobalVariables extends AbstractExtension implements GlobalsInterface
         $publishedPages = $this->pageRepository->queryAllByPublished();
 
         return [
-            'pageTitle' => $pageTitle,
+            'pageTitle' => $pageTitle->getValue(),
             'mainMenuItems' => $publishedPages
         ];
     }

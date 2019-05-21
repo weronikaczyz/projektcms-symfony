@@ -5,7 +5,9 @@
 namespace App\Controller;
 
 use App\Entity\Page;
+use App\Entity\Setting;
 use App\Entity\User;
+use App\Form\SettingType;
 use App\Repository\PageRepository;
 use App\Repository\UserRepository;
 use App\Repository\SettingRepository;
@@ -76,6 +78,47 @@ class AdminController extends AbstractController
         return $this->render(
             'admin/users.html.twig',
             ['pagination' => $pagination]
+        );
+    }
+
+    /**
+    * Settings action.
+    *
+    * @return \Symfony\Component\HttpFoundation\Response HTTP response
+    * @return \Symfony\Component\Twig
+    *
+    * @Route(
+    *    "/admin/settings",
+    *     methods={"GET", "PUT"},
+    *     name="admin_settings"
+    *    )
+    */
+    public function settings(Request $request, SettingRepository $repository): Response
+    {
+        if (!$this->isGranted('ROLE_ADMIN')) {
+            return $this->render(
+                'errors/403.html.twig'
+            );
+        }
+
+        $setting = $repository->getPageTitle();
+
+        $titleForm = $this->createForm(SettingType::class, $setting, ['method' => 'PUT']);
+        $titleForm->handleRequest($request);
+
+        if ($titleForm->isSubmitted() && $titleForm->isValid()) {
+            $setting->setUpdatedAt(new \DateTime());
+            $repository->save($setting);
+
+            $this->addFlash('success', 'message.updated_successfully');
+            return $this->redirectToRoute('admin_pages');
+        }
+
+        return $this->render(
+            'admin/settings.html.twig',
+            [
+                'titleForm' => $titleForm->createView()
+            ]
         );
     }
 }

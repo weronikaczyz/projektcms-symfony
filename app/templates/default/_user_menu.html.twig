@@ -7,6 +7,10 @@
     <div class="navbar-menu">
         <div class="navbar-start">
             {% if is_granted('ROLE_ADMIN') %}
+                <a href="{{ url('admin_settings') }}" class="navbar-item">
+                    <i class="fas fa-cog"></i>&nbsp;
+                    {{ 'admin.settings'|trans }}
+                </a>
                 <a href="{{ url('admin_pages') }}" class="navbar-item">
                     <i class="fas fa-list"></i>&nbsp;
                     {{ 'admin.pages_index'|trans }}
