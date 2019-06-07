@@ -82,6 +82,11 @@ class Page
     private $updatedAt;
 
     /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Photo", mappedBy="page", cascade={"persist", "remove"})
+     */
+    private $photo;
+
+    /**
      * Get ID
      *
      * @return int|null Id
@@ -209,5 +214,32 @@ class Page
     public function setUpdatedAt(\DateTimeInterface $updatedAt): void
     {
         $this->updatedAt = $updatedAt;
+    }
+
+    /**
+    * Getter for Photo.
+    *
+    * @return \App\Entity\Photo|null Photo entity
+    */
+    public function getPhoto(): ?Photo
+    {
+        return $this->photo;
+    }
+
+    /**
+    * Setter for Photo.
+    *
+    * @param \App\Entity\Photo $photop Photo entity
+    */
+    public function setPhoto(Photo $photo): self
+    {
+        $this->photo = $photo;
+
+        // set the owning side of the relation if necessary
+        if ($this !== $photo->getPage()) {
+            $photo->setPage($this);
+        }
+
+        return $this;
     }
 }
