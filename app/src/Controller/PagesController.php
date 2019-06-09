@@ -8,12 +8,15 @@ use App\Entity\Page;
 use App\Form\PageType;
 use App\Repository\PageRepository;
 use App\Repository\SettingRepository;
+use App\Service\FileUploader;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\Extension\Core\Type\FormType;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
 use Knp\Component\Pager\PaginatorInterface;
+use Symfony\Component\HttpFoundation\File\File;
 
 /**
  * Class PagesController
@@ -21,6 +24,23 @@ use Knp\Component\Pager\PaginatorInterface;
  */
 class PagesController extends AbstractController
 {
+    /**
+    * Uploader Service.
+    *
+    * @var \App\Service\FileUploader $uploaderService
+    */
+    private $uploaderService = null;
+
+    /**
+    * Constructor.
+    *
+    * @param \App\Service\FileUploader $uploaderService Uploader Service.
+    */
+    public function __construct(FileUploader $uploaderService)
+    {
+        $this->uploaderService = $uploaderService;
+    }
+
     /**
     * Index action.
     *
@@ -146,6 +166,19 @@ class PagesController extends AbstractController
             $page->setCreatedAt(new \DateTime());
             $page->setUpdatedAt(new \DateTime());
             $page->setAuthor($this->getUser());
+
+            if (null !== $request->files->get('page')) {
+                $file = $request->files->get('page');
+                if (isset($file['file'])) {
+                    $file = $file['file'];
+                }
+
+                if ($file instanceof UploadedFile) {
+                    $filename = $this->uploaderService->upload($file);
+                    $page->setFile($filename);
+                }
+            }
+
             $repository->save($page);
 
             $this->addFlash('success', 'message.created_successfully');
@@ -190,6 +223,7 @@ class PagesController extends AbstractController
     ): Response
     {
         $user = $this->getUser();
+        $oldFile = $page->getFile();
 
         if (!$this->isGranted('ROLE_ADMIN') && $user->getId() !== $page->getAuthor()->getId()) {
             return $this->render(
@@ -198,6 +232,10 @@ class PagesController extends AbstractController
         }
 
         $homepage = $repository->getHomePage();
+
+        if (null !== $page->getFile()) {
+            $page->setFile(new File($this->uploaderService->getTargetDirectory() . '/' . $page->getFile()));
+        }
 
         $form = $this->createForm(PageType::class, $page, ['method' => 'PUT']);
         $form->handleRequest($request);
@@ -208,6 +246,20 @@ class PagesController extends AbstractController
                 if ($isHomepage) {
                     $settingRepository->setHomepage($page->getId());
                     $page->setPublished(true);
+                }
+            }
+
+            if (null !== $request->files->get('page')) {
+                $file = $request->files->get('page');
+                if (isset($file['file'])) {
+                    $file = $file['file'];
+                } else {
+                    $page->setFile($oldFile);
+                }
+
+                if ($file instanceof UploadedFile) {
+                    $filename = $this->uploaderService->upload($file);
+                    $page->setFile($filename);
                 }
             }
 

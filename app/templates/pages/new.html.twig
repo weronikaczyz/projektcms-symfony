@@ -11,7 +11,7 @@
         </h1>
     </section>
     <section class="section">
-        {{ form_start(form, { method: 'POST', action: url('page_new') }) }}
+        {{ form_start(form, { method: 'POST', action: url('page_new'), multipart: true }) }}
         {{ form_widget(form) }}
         <div class="field is-grouped">
             <div class="control">

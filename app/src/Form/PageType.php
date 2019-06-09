@@ -53,7 +53,7 @@ class PageType extends AbstractType
             ]
         );
         $builder->add(
-            'photo',
+            'file',
             FileType::class,
             [
                 'label' => 'pages.photo',

@@ -24,8 +24,18 @@
             </div>
 
             <table class="table is-striped is-fullwidth">
+                <colgroup>
+                    <col width="150px">
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                    <col>
+                </colgroup>
                 <thead>
                     <tr>
+                        <th>{{ 'label.photo'|trans }}</th>
                         <th>{{ knp_pagination_sortable(pagination, 'label.published'|trans, 't.published') }}</th>
                         <th>{{ knp_pagination_sortable(pagination, 'label.title'|trans, 't.title') }}</th>
                         <th>{{ 'label.author'|trans }}</th>
@@ -37,6 +47,11 @@
                 <tbody>
                     {% for page in pagination %}
                         <tr>
+                            <td>
+                                {% if page.file %}
+                                    <img src="{{ asset('uploads/photos/' ~ page.file) }}" alt="{{ page.file }}">
+                                {% endif %}
+                            </td>
                             <td>
                                 {% if page.published %}
                                     <span class="tag is-rounded is-success">{{ 'label.published'|trans }}</span>

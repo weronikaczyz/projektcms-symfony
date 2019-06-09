@@ -16,8 +16,8 @@
             {{- parent() -}}
             {%- if widget_icon != false -%}
                 <span class="{{ ('icon ' ~ size_class|default(''))|trim -}}">
-                <i class="fa fa-{{ attribute(widget_icon, 'icon')|default('') -}}"></i>
-            </span>
+                    <i class="fa fa-{{ attribute(widget_icon, 'icon')|default('') -}}"></i>
+                </span>
             {%- endif -%}
             {{- block('form_errors') -}}
         </div>
@@ -80,7 +80,9 @@
 {%- endblock number_widget -%}
 
 {% block checkbox_widget -%}
-    {{- form_label(form, null, { widget: parent() }) -}}
+    <div class="field">
+        {{- form_label(form, null, { widget: parent() }) -}}
+    </div>
 {%- endblock checkbox_widget %}
 
 {% block radio_widget -%}

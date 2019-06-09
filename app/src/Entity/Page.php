@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Constraints as Assert;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -82,9 +84,21 @@ class Page
     private $updatedAt;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Photo", mappedBy="page", cascade={"persist", "remove"})
-     */
-    private $photo;
+    * File.
+    *
+    * @ORM\Column(
+    *     type="string",
+    *     length=192,
+    *     nullable=true,
+    *     unique=true,
+    * )
+    *
+    * @Assert\Image(
+    *     maxSize = "1024k",
+    *     mimeTypes={"image/png", "image/jpeg", "image/pjpeg", "image/jpeg", "image/pjpeg"},
+    * )
+    */
+    private $file;
 
     /**
      * Get ID
@@ -217,29 +231,22 @@ class Page
     }
 
     /**
-    * Getter for Photo.
+    * Getter for File.
     *
-    * @return \App\Entity\Photo|null Photo entity
+    * @return string|null|UploadedFile File
     */
-    public function getPhoto(): ?Photo
+    public function getFile()
     {
-        return $this->photo;
+        return $this->file;
     }
 
     /**
-    * Setter for Photo.
+    * Setter for File.
     *
-    * @param \App\Entity\Photo $photop Photo entity
+    * @param string $file File
     */
-    public function setPhoto(Photo $photo): self
+    public function setFile($file): void
     {
-        $this->photo = $photo;
-
-        // set the owning side of the relation if necessary
-        if ($this !== $photo->getPage()) {
-            $photo->setPage($this);
-        }
-
-        return $this;
+        $this->file = $file;
     }
 }
