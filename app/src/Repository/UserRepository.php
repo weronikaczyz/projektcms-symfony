@@ -31,6 +31,16 @@ class UserRepository extends ServiceEntityRepository
             ->orderBy('t.name', 'ASC');
     }
 
+    public function queryAllByEmail($email): array
+    {
+        $users =  $this->getOrCreateQueryBuilder()
+            ->andWhere('t.email = \'' . $email . '\'')
+            ->getQuery()
+            ->getResult();
+
+        return $users;
+    }
+
     /**
     * Get or create new query builder.
     *

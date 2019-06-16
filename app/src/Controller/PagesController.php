@@ -269,6 +269,11 @@ class PagesController extends AbstractController
 
             $this->addFlash('success', 'message.updated_successfully');
 
+            // $this->addFlash(
+            //     'success',
+            //     $this->get('translator')->trans('message.updated_successfully')
+            // );
+
             if ($this->isGranted('ROLE_ADMIN')) {
                 return $this->redirectToRoute('admin_pages');
             } else {

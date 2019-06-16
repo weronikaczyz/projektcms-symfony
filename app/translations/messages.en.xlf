@@ -95,6 +95,10 @@
                 <source>action.logout</source>
                 <target>Log out</target>
             </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Register</target>
+            </trans-unit>
             <trans-unit id="action.save">
                 <source>action.save</source>
                 <target>Save</target>
@@ -146,8 +150,20 @@
 
             <!-- Messages -->
             <trans-unit id="message.empty_list">
-                <source>pages.empty_list</source>
+                <source>message.empty_list</source>
                 <target>Empty list</target>
+            </trans-unit>
+            <trans-unit id="message.created_successfully">
+                <source>message.created_successfully</source>
+                <target>Created successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.updated_successfully">
+                <source>message.updated_successfully</source>
+                <target>Updated successfully!</target>
+            </trans-unit>
+            <trans-unit id="message.user_exists">
+                <source>message.user_exists</source>
+                <target>User already exists.</target>
             </trans-unit>
 
             <!-- Settings -->

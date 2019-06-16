@@ -1,0 +1,27 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'action.register'|trans }}
+{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <h1 class="title">
+            {{ 'action.register'|trans }}
+        </h1>
+    </section>
+
+    <section class="section">
+        {{ form_start(registrationForm, { method: 'POST', action: url('app_register') }) }}
+            {{ form_widget(registrationForm) }}
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-link">
+                        <i class="fas fa-user"></i>&nbsp; {{ 'action.register'|trans }}
+                    </button>
+                </div>
+            </div>
+        {{ form_end(registrationForm) }}
+    </section>
+{% endblock %}

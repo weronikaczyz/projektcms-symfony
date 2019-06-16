@@ -95,6 +95,10 @@
                 <source>action.logout</source>
                 <target>Wyloguj się</target>
             </trans-unit>
+            <trans-unit id="action.register">
+                <source>action.register</source>
+                <target>Zarejestruj się</target>
+            </trans-unit>
             <trans-unit id="action.save">
                 <source>action.save</source>
                 <target>Zapisz</target>
@@ -146,8 +150,20 @@
 
             <!-- Messages -->
             <trans-unit id="message.empty_list">
-                <source>pages.empty_list</source>
+                <source>message.empty_list</source>
                 <target>Pusta lista</target>
+            </trans-unit>
+            <trans-unit id="message.created_successfully">
+                <source>message.created_successfully</source>
+                <target>Stworzono poprawnie!</target>
+            </trans-unit>
+            <trans-unit id="message.updated_successfully">
+                <source>message.updated_successfully</source>
+                <target>Uaktualniono poprawnie!</target>
+            </trans-unit>
+            <trans-unit id="message.user_exists">
+                <source>message.user_exists</source>
+                <target>Ten użytkownik już istnieje.</target>
             </trans-unit>
 
             <!-- Settings -->
