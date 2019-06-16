@@ -38,9 +38,9 @@ class SettingType extends AbstractType
             'value',
             TextType::class,
             [
-                'label' => 'settings.value',
+                'label' => 'label.title',
                 'required' => true,
-                'attr' => ['max_length' => 4500],
+                'attr' => ['max_length' => 4500]
             ]
         );
     }

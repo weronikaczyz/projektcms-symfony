@@ -34,7 +34,7 @@
 
         <div class="navbar-end">
             {% if is_granted('IS_AUTHENTICATED_REMEMBERED') %}
-                <p class="navbar-item">Hello, {{ app.user.name }}</p>
+                <p class="navbar-item">{{ 'label.hello'|trans }}, {{ app.user.name }}</p>
             {% endif %}
             <div class="navbar-item">
                 <div class="buttons">

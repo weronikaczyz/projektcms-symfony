@@ -1,0 +1,170 @@
+<?xml version="1.0"?>
+<xliff version="1.2" xmlns="urn:oasis:names:tc:xliff:document:1.2">
+    <file source-language="en" datatype="plaintext" original="file.ext">
+        <body>
+            <!-- Labels -->
+            <trans-unit id="label.id">
+                <source>label.id</source>
+                <target>Id</target>
+            </trans-unit>
+            <trans-unit id="label.title">
+                <source>label.title</source>
+                <target>Title</target>
+            </trans-unit>
+            <trans-unit id="label.email">
+                <source>label.email</source>
+                <target>Email</target>
+            </trans-unit>
+            <trans-unit id="label.password">
+                <source>label.password</source>
+                <target>Password</target>
+            </trans-unit>
+            <trans-unit id="label.photo">
+                <source>label.photo</source>
+                <target>Photo</target>
+            </trans-unit>
+            <trans-unit id="label.content">
+                <source>label.content</source>
+                <target>Content</target>
+            </trans-unit>
+            <trans-unit id="label.published">
+                <source>label.published</source>
+                <target>Published</target>
+            </trans-unit>
+            <trans-unit id="label.not_published">
+                <source>label.not_published</source>
+                <target>Not published</target>
+            </trans-unit>
+            <trans-unit id="label.author">
+                <source>label.author</source>
+                <target>Author</target>
+            </trans-unit>
+            <trans-unit id="label.created_at">
+                <source>label.created_at</source>
+                <target>Date of creation</target>
+            </trans-unit>
+            <trans-unit id="label.updated_at">
+                <source>label.updated_at</source>
+                <target>Date of edit</target>
+            </trans-unit>
+            <trans-unit id="label.actions">
+                <source>label.actions</source>
+                <target>Actions</target>
+            </trans-unit>
+            <trans-unit id="label.homepage">
+                <source>label.homepage</source>
+                <target>Homepage</target>
+            </trans-unit>
+            <trans-unit id="label.roles">
+                <source>label.roles</source>
+                <target>Roles</target>
+            </trans-unit>
+            <trans-unit id="label.name">
+                <source>label.name</source>
+                <target>Name</target>
+            </trans-unit>
+            <trans-unit id="label.user">
+                <source>label.user</source>
+                <target>User</target>
+            </trans-unit>
+            <trans-unit id="label.admin">
+                <source>label.admin</source>
+                <target>Administrator</target>
+            </trans-unit>
+            <trans-unit id="label.main_menu">
+                <source>label.main_menu</source>
+                <target>Main menu</target>
+            </trans-unit>
+            <trans-unit id="label.hello">
+                <source>label.hello</source>
+                <target>Hello</target>
+            </trans-unit>
+
+            <!-- Titles -->
+            <trans-unit id="title.login">
+                <source>title.login</source>
+                <target>Login</target>
+            </trans-unit>
+
+            <!-- Actions -->
+            <trans-unit id="action.login">
+                <source>action.login</source>
+                <target>Log in</target>
+            </trans-unit>
+            <trans-unit id="action.logout">
+                <source>action.logout</source>
+                <target>Log out</target>
+            </trans-unit>
+            <trans-unit id="action.save">
+                <source>action.save</source>
+                <target>Save</target>
+            </trans-unit>
+            <trans-unit id="action.cancel">
+                <source>action.cancel</source>
+                <target>Cancel</target>
+            </trans-unit>
+            <trans-unit id="action.back_to_list">
+                <source>action.back_to_list</source>
+                <target>Back to the list</target>
+            </trans-unit>
+
+            <!-- Pages -->
+            <trans-unit id="pages.index">
+                <source>pages.index</source>
+                <target>All pages</target>
+            </trans-unit>
+            <trans-unit id="pages.new">
+                <source>pages.new</source>
+                <target>New page</target>
+            </trans-unit>
+            <trans-unit id="pages.view">
+                <source>pages.view</source>
+                <target>View page</target>
+            </trans-unit>
+            <trans-unit id="pages.edit">
+                <source>pages.edit</source>
+                <target>Edit page</target>
+            </trans-unit>
+            <trans-unit id="pages.my">
+                <source>pages.my</source>
+                <target>My pages</target>
+            </trans-unit>
+
+            <!-- Admin -->
+            <trans-unit id="admin.users_index">
+                <source>admin.users_index</source>
+                <target>Users list</target>
+            </trans-unit>
+            <trans-unit id="admin.pages_index">
+                <source>admin.pages_index</source>
+                <target>Pages list</target>
+            </trans-unit>
+            <trans-unit id="admin.settings">
+                <source>admin.settings</source>
+                <target>Settings</target>
+            </trans-unit>
+
+            <!-- Messages -->
+            <trans-unit id="message.empty_list">
+                <source>pages.empty_list</source>
+                <target>Empty list</target>
+            </trans-unit>
+
+            <!-- Settings -->
+            <trans-unit id="settings.title">
+                <source>settings.title</source>
+                <target>Settings</target>
+            </trans-unit>
+
+            <!-- Errors -->
+            <trans-unit id="errors.no_permission">
+                <source>errors.no_permission</source>
+                <target>No permission</target>
+            </trans-unit>
+            <trans-unit id="errors.no_permission_long">
+                <source>errors.no_permission_long</source>
+                <target>You are not permitted to browse this content.</target>
+            </trans-unit>
+        </body>
+    </file>
+</xliff>

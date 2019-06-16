@@ -38,7 +38,7 @@ class PageType extends AbstractType
             'title',
             TextType::class,
             [
-                'label' => 'pages.title',
+                'label' => 'label.title',
                 'required' => true,
                 'attr' => ['max_length' => 255],
             ]
@@ -47,7 +47,7 @@ class PageType extends AbstractType
             'content',
             TextareaType::class,
             [
-                'label' => 'pages.content',
+                'label' => 'label.content',
                 'required' => true,
                 'attr' => ['max_length' => 4500],
             ]
@@ -56,7 +56,7 @@ class PageType extends AbstractType
             'file',
             FileType::class,
             [
-                'label' => 'pages.photo',
+                'label' => 'label.photo',
                 'required' => false
             ]
         );
