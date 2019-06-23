@@ -79,6 +79,10 @@
                 <source>label.hello</source>
                 <target>Witaj</target>
             </trans-unit>
+            <trans-unit id="label.are_you_sure">
+                <source>label.are_you_sure</source>
+                <target>Jesteś pewny? Tej akcji nie da się odwrócić.</target>
+            </trans-unit>
 
             <!-- Titles -->
             <trans-unit id="title.login">
@@ -106,6 +110,10 @@
             <trans-unit id="action.cancel">
                 <source>action.cancel</source>
                 <target>Anuluj</target>
+            </trans-unit>
+            <trans-unit id="action.delete">
+                <source>action.delete</source>
+                <target>Usuń</target>
             </trans-unit>
             <trans-unit id="action.back_to_list">
                 <source>action.back_to_list</source>
@@ -139,6 +147,10 @@
                 <source>admin.users_index</source>
                 <target>Lista użytkowników</target>
             </trans-unit>
+            <trans-unit id="admin.edit_user">
+                <source>admin.edit_user</source>
+                <target>Edycja użytkownika</target>
+            </trans-unit>
             <trans-unit id="admin.pages_index">
                 <source>admin.pages_index</source>
                 <target>Lista stron</target>
@@ -161,9 +173,17 @@
                 <source>message.updated_successfully</source>
                 <target>Uaktualniono poprawnie!</target>
             </trans-unit>
+            <trans-unit id="message.deleted_successfully">
+                <source>message.deleted_successfully</source>
+                <target>Usunięto poprawnie!</target>
+            </trans-unit>
             <trans-unit id="message.user_exists">
                 <source>message.user_exists</source>
                 <target>Ten użytkownik już istnieje.</target>
+            </trans-unit>
+            <trans-unit id="message.users_pages_will_be_deleted">
+                <source>message.users_pages_will_be_deleted</source>
+                <target>Strony tego użytkownika również zostaną usunięte.</target>
             </trans-unit>
 
             <!-- Settings -->

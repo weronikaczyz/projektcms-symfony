@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'admin.edit_user'|trans }}
+{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <h1 class="title">
+            {{ 'admin.edit_user'|trans }}
+        </h1>
+    </section>
+    <section class="section">
+        <h3 class="title is-4">{{ 'admin.edit_user'|trans }}</h3>
+        {{ form_start(form, { method: 'PUT' }) }}
+        {{ form_widget(form) }}
+        <div class="field is-grouped">
+            <div class="control">
+                <input type="submit" value="{{ 'action.save'|trans }}" class="button is-link" />
+            </div>
+            <div class="control">
+                <a href="{{ url('admin_users') }}" class="button is-text">
+                    {{ 'action.cancel'|trans }}
+                </a>
+            </div>
+        </div>
+        <div class="field">
+            <div class="control">
+                <a
+                    class="button is-danger"
+                    href="{{ path('admin_users_delete', {id: user.id}) }}"
+                    onclick="return confirm('{{ 'label.are_you_sure'|trans }} {{ 'message.users_pages_will_be_deleted'|trans }}')">
+                        {{ 'action.delete'|trans }}
+                </a>
+            </div>
+        </div>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

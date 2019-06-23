@@ -113,10 +113,11 @@ class User implements UserInterface
     *
     * @ORM\Column(type="string", length=255)
     *
-    * @Assert\NotBlank
+    * @Assert\NotBlank(groups={"Default"})
     * @Assert\Length(
     *     min="3",
     *     max="255",
+    *     groups={"Default"}
     * )
     *
     * @SecurityAssert\UserPassword
@@ -144,7 +145,7 @@ class User implements UserInterface
     private $name;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="author")
+     * @ORM\OneToMany(targetEntity="App\Entity\Page", mappedBy="author", cascade={"remove"})
      */
     private $pages;
 

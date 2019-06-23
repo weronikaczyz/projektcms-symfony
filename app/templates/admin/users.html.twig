@@ -28,6 +28,7 @@
                         <th>{{ knp_pagination_sortable(pagination, 'label.email'|trans, 't.email') }}</th>
                         <th>{{ knp_pagination_sortable(pagination, 'label.created_at'|trans, 't.createdAt') }}</th>
                         <th>{{ knp_pagination_sortable(pagination, 'label.updated_at'|trans, 't.updatedAt') }}</th>
+                        <th>{{ 'label.actions'|trans }}</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -48,6 +49,12 @@
                             <td>{{ user.email }}</td>
                             <td>{{ user.createdAt|date('Y/m/d') }}</td>
                             <td>{{ user.updatedAt|date('Y/m/d') }}</td>
+                            <td>
+                                <a href="{{ url('admin_users_edit', {id: user.id}) }}">
+                                    <i class="fas fa-pencil-alt"></i>
+                                    {{ 'pages.edit'|trans }}
+                                </a>
+                            </td>
                         </tr>
                     {% endfor %}
                 </tbody>
