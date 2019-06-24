@@ -19,6 +19,14 @@
                 <source>label.password</source>
                 <target>Hasło</target>
             </trans-unit>
+            <trans-unit id="label.password_new">
+                <source>label.password_new</source>
+                <target>Nowe hasło (opcjonalnie)</target>
+            </trans-unit>
+            <trans-unit id="label.password_admin">
+                <source>label.password_admin</source>
+                <target>Hasło administratora</target>
+            </trans-unit>
             <trans-unit id="label.photo">
                 <source>label.photo</source>
                 <target>Zdjęcie</target>
@@ -119,6 +127,10 @@
                 <source>action.back_to_list</source>
                 <target>Powrót do listy</target>
             </trans-unit>
+            <trans-unit id="action.edit_account">
+                <source>action.edit_account</source>
+                <target>Edycja konta</target>
+            </trans-unit>
 
             <!-- Pages -->
             <trans-unit id="pages.index">
@@ -184,6 +196,10 @@
             <trans-unit id="message.users_pages_will_be_deleted">
                 <source>message.users_pages_will_be_deleted</source>
                 <target>Strony tego użytkownika również zostaną usunięte.</target>
+            </trans-unit>
+            <trans-unit id="message.invalid_password">
+                <source>message.invalid_password</source>
+                <target>Niepoprawne hasło!</target>
             </trans-unit>
 
             <!-- Settings -->

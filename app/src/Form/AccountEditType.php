@@ -8,15 +8,16 @@ namespace App\Form;
 use App\Entity\User;
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
+use Symfony\Component\Validator\Constraints\Length;
 
 /**
 * Class AdminEditUser.
 */
-class AdminEditUserType extends AbstractType
+class AccountEditType extends AbstractType
 {
     /**
     * Builds the form.
@@ -32,12 +33,20 @@ class AdminEditUserType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options): void
     {
         $builder->add(
-            'admin',
-            CheckboxType::class,
+            'email',
+            TextType::class,
+            array(
+                'attr' => array(
+                    'readonly' => true,
+                ),
+            )
+        );
+        $builder->add(
+            'name',
+            TextType::class,
             [
-                'mapped' => false,
-                'label' => 'label.admin',
-                'required' => false
+                'label' => 'label.name',
+                'required' => true
             ]
         );
         $builder->add(
@@ -47,7 +56,26 @@ class AdminEditUserType extends AbstractType
                 // instead of being set onto the object directly,
                 // this is read and encoded in the controller
                 'mapped' => false,
-                'label' => 'label.password_admin'
+                'label' => 'label.password'
+            ]
+        );
+        $builder->add(
+            'newPassword',
+            PasswordType::class,
+            [
+                // instead of being set onto the object directly,
+                // this is read and encoded in the controller
+                'mapped' => false,
+                'required' => false,
+                'label' => 'label.password_new',
+                'constraints' => [
+                    new Length([
+                        'min' => 6,
+                        'minMessage' => 'This value should have exactly {{ limit }} characters.',
+                        // max length allowed by Symfony for security reasons
+                        'max' => 4096,
+                    ]),
+                ],
             ]
         );
     }
@@ -61,7 +89,7 @@ class AdminEditUserType extends AbstractType
     {
         $resolver->setDefaults([
             'data_class' => User::class,
-            'validation_groups' => array('Admin'),
+            'validation_groups' => array('Account'),
         ]);
     }
 

@@ -1,0 +1,32 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}
+    {{ 'action.edit_account'|trans }}
+{% endblock %}
+
+{% block body %}
+    <section class="section">
+        <h1 class="title">
+            {{ 'action.edit_account'|trans }}
+        </h1>
+    </section>
+
+    <section class="section">
+        {{ form_start(form) }}
+            {{ form_widget(form) }}
+
+            <div class="field is-grouped">
+                <div class="control">
+                    <button type="submit" class="button is-link">
+                        {{ 'action.save'|trans }}
+                    </button>
+                </div>
+                <div class="control">
+                    <a href="{{ url('page_index') }}" class="button is-text">
+                        {{ 'action.cancel'|trans }}
+                    </a>
+                </div>
+            </div>
+        {{ form_end(form) }}
+    </section>
+{% endblock %}

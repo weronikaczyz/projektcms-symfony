@@ -19,6 +19,14 @@
                 <source>label.password</source>
                 <target>Password</target>
             </trans-unit>
+            <trans-unit id="label.password_new">
+                <source>label.password_new</source>
+                <target>New password (optionally)</target>
+            </trans-unit>
+            <trans-unit id="label.password_admin">
+                <source>label.password_admin</source>
+                <target>Administrator password</target>
+            </trans-unit>
             <trans-unit id="label.photo">
                 <source>label.photo</source>
                 <target>Photo</target>
@@ -118,6 +126,10 @@
             <trans-unit id="action.back_to_list">
                 <source>action.back_to_list</source>
                 <target>Back to the list</target>
+            </trans-unit>
+            <trans-unit id="action.edit_account">
+                <source>action.edit_account</source>
+                <target>Edit account</target>
             </trans-unit>
 
             <!-- Pages -->

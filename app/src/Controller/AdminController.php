@@ -17,6 +17,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 
 class AdminController extends AbstractController
 {
@@ -96,7 +97,11 @@ class AdminController extends AbstractController
      *     name="admin_users_edit",
      * )
      */
-    public function editUser(Request $request, User $user): Response
+    public function editUser(
+        Request $request,
+        User $user,
+        UserPasswordEncoderInterface $passwordEncoder
+    ): Response
     {
         if (!$this->isGranted('ROLE_ADMIN')) {
             return $this->render(
@@ -113,19 +118,25 @@ class AdminController extends AbstractController
         $userForm->handleRequest($request);
 
         if ($userForm->isSubmitted() && $userForm->isValid()) {
-            $user->setUpdatedAt(new \DateTime());
-            if ($userForm->get('admin')->getData()) {
-                $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+            $admin = $this->getUser();
+
+            if ($passwordEncoder->isPasswordValid($admin, $userForm->get('password')->getData())) {
+                $user->setUpdatedAt(new \DateTime());
+                if ($userForm->get('admin')->getData()) {
+                    $user->setRoles(['ROLE_USER', 'ROLE_ADMIN']);
+                } else {
+                    $user->setRoles(['ROLE_USER']);
+                }
+
+                $entityManager = $this->getDoctrine()->getManager();
+                $entityManager->persist($user);
+                $entityManager->flush();
+
+                $this->addFlash('success', 'message.updated_successfully');
+                return $this->redirectToRoute('admin_users');
             } else {
-                $user->setRoles(['ROLE_USER']);
+                $this->addFlash('error', 'message.invalid_password');
             }
-
-            $entityManager = $this->getDoctrine()->getManager();
-            $entityManager->persist($user);
-            $entityManager->flush();
-
-            $this->addFlash('success', 'message.updated_successfully');
-            return $this->redirectToRoute('admin_users');
         }
 
         return $this->render(
